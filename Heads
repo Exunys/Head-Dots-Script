@@ -43,9 +43,9 @@ _G.DefaultSettings = false   -- If set to true then the heads script would run w
 _G.TeamCheck = false   -- If set to true then the script would create head dots only for the enemy team members.
 
 _G.HeadDotsVisible = true   -- If set to true then the head dots will be visible and vice versa.
-_G.DotColor = Color3.fromRGB(255, 255, 255)   -- The color that the head dots would appear as.
+_G.DotColor = Color3.fromRGB(255, 80, 10)   -- The color that the head dots would appear as.
 _G.DotSize = 5   -- The size of the head dot.
-_G.DotTransparency = 1   -- The transparency of the head dot.
+_G.DotTransparency = 0.7   -- The transparency of the head dot.
 _G.DotSides = 100   -- How many sides will the dot have.
 _G.DotThickness = 1   -- How thick will the head dot be.
 _G.Filled = true   -- If set to true then the circle would be filled and vice versa.
@@ -86,46 +86,53 @@ local function CreateHeadDots()
                     HeadDot.Visible = false
                 end
             end)
+
+            Players.PlayerRemoving:Connect(function()
+                HeadDot.Visible = false
+            end)
         end
     end
 
-    Players.PlayerAdded:Connect(function(v)
-        if v.Name ~= Players.LocalPlayer.Name then
-            repeat wait() until workspace:WaitForChild(Players[v.Name], math.huge) ~= nil 
-            repeat wait() until workspace[Players[v.Name]]:WaitForChild("HumanoidRootPart", math.huge) ~= nil
-            
-            local HeadDot = Drawing.new("Circle")
-
-            RunService.RenderStepped:Connect(function()
-                if workspace:FindFirstChild(v.Name) ~= nil and workspace[v.Name]:FindFirstChild("Head") ~= nil then
-                    local Vector, OnScreen = Camera:WorldToViewportPoint(workspace:WaitForChild(v.Name, math.huge).Head.Position)
-
-                    HeadDot.Color = _G.DotColor
-                    HeadDot.Radius = _G.DotSize
-                    HeadDot.Transparency = _G.DotTransparency
-                    HeadDot.NumSides = _G.DotSides
-                    HeadDot.Thickness = _G.DotThickness
-                    HeadDot.Filled = _G.Filled
-
-                    if OnScreen == true then
-                        HeadDot.Position = Vector2.new(Vector.X, Vector.Y)
-                        if _G.TeamCheck == true then 
-                            if Players.LocalPlayer.Team ~= v.Team then
-                                HeadDot.Visible = _G.HeadDotsVisible
+    Players.PlayerAdded:Connect(function(Player)
+        Player.CharacterAdded:Connect(function(v)
+            if v.Name ~= Players.LocalPlayer.Name then
+                local HeadDot = Drawing.new("Circle")
+    
+                RunService.RenderStepped:Connect(function()
+                    if workspace:FindFirstChild(v.Name) ~= nil and workspace[v.Name]:FindFirstChild("Head") ~= nil then
+                        local Vector, OnScreen = Camera:WorldToViewportPoint(workspace:WaitForChild(v.Name, math.huge).Head.Position)
+    
+                        HeadDot.Color = _G.DotColor
+                        HeadDot.Radius = _G.DotSize
+                        HeadDot.Transparency = _G.DotTransparency
+                        HeadDot.NumSides = _G.DotSides
+                        HeadDot.Thickness = _G.DotThickness
+                        HeadDot.Filled = _G.Filled
+    
+                        if OnScreen == true then
+                            HeadDot.Position = Vector2.new(Vector.X, Vector.Y)
+                            if _G.TeamCheck == true then 
+                                if Players.LocalPlayer.Team ~= Players:GetPlayerFromCharacter(v).Team then
+                                    HeadDot.Visible = _G.HeadDotsVisible
+                                else
+                                    HeadDot.Visible = false
+                                end
                             else
-                                HeadDot.Visible = false
+                                HeadDot.Visible = _G.HeadDotsVisible
                             end
                         else
-                            HeadDot.Visible = _G.HeadDotsVisible
+                            HeadDot.Visible = false
                         end
                     else
                         HeadDot.Visible = false
                     end
-                else
+                end)
+
+                Players.PlayerRemoving:Connect(function()
                     HeadDot.Visible = false
-                end
-            end)
-        end
+                end)
+            end
+        end)
     end)
 end
 
