@@ -1,14 +1,3 @@
---[[
-
-		██╗░░░██╗██████╗░██╗░█████╗░░█████╗░░██████╗████████╗
-		██║░░░██║██╔══██╗██║██╔══██╗██╔══██╗██╔════╝╚══██╔══╝
-		██║░░░██║██████╦╝██║██║░░╚═╝███████║╚█████╗░░░░██║░░░
-		██║░░░██║██╔══██╗██║██║░░██╗██╔══██║░╚═══██╗░░░██║░░░
-		╚██████╔╝██████╦╝██║╚█████╔╝██║░░██║██████╔╝░░░██║░░░
-		░╚═════╝░╚═════╝░╚═╝░╚════╝░╚═╝░░╚═╝╚═════╝░░░░╚═╝░░░
-
-]]
-
 local function API_Check()
     if Drawing == nil then
         return "No"
@@ -21,7 +10,7 @@ local Find_Required = API_Check()
 
 if Find_Required == "No" then
     game:GetService("StarterGui"):SetCore("SendNotification",{
-        Title = "Ubicast Developer";
+        Title = "Exunys Developer";
         Text = "Heads script could not be loaded because your exploit is unsupported.";
         Duration = math.huge;
         Button1 = "OK"
@@ -53,7 +42,7 @@ _G.Filled = true   -- If set to true then the circle would be filled and vice ve
 _G.DisableKey = Enum.KeyCode.Q   -- The key that disables / enables the head dots.
 
 local function CreateHeadDots()
-    for _, v in pairs(Players:GetPlayers()) do
+    for _, v in next, Players:GetPlayers() do
         if v.Name ~= Players.LocalPlayer.Name then
             local HeadDot = Drawing.new("Circle")
 
@@ -162,7 +151,7 @@ UserInputService.InputBegan:Connect(function(Input)
         
         if _G.SendNotifications == true then
             game:GetService("StarterGui"):SetCore("SendNotification",{
-                Title = "Ubicast Developer";
+                Title = "Exunys Developer";
                 Text = "The Heads's visibility is now set to "..tostring(_G.HeadDotsVisible)..".";
                 Duration = 5;
             })
@@ -177,7 +166,7 @@ end)
 if Success and not Errored then
     if _G.SendNotifications == true then
         game:GetService("StarterGui"):SetCore("SendNotification",{
-            Title = "Ubicast Developer";
+            Title = "Exunys Developer";
             Text = "Heads script has successfully loaded.";
             Duration = 5;
         })
@@ -185,12 +174,12 @@ if Success and not Errored then
 elseif Errored and not Success then
     if _G.SendNotifications == true then
         game:GetService("StarterGui"):SetCore("SendNotification",{
-            Title = "Ubicast Developer";
+            Title = "Exunys Developer";
             Text = "Heads script has errored while loading, please check the developer console! (F9)";
             Duration = 5;
         })
     end
-    TestService:Message("The heads script has errored, please notify Ubicast with the following information :")
+    TestService:Message("The heads script has errored, please notify Exunys with the following information :")
     warn(Errored)
     print("!! IF THE ERROR IS A FALSE POSITIVE (says that a player cannot be found) THEN DO NOT BOTHER !!")
 end
