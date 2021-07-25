@@ -11,12 +11,12 @@ You can also edit different settings about the dots, such as color, wheter they'
 
 ## Script
 
-Load the script by using the code below or by copying it from [here](https://github.com/UbicastDev/Head-Dots-Script/blob/main/Heads).
+Load the script by using the code below or by copying it from [here](https://github.com/Exunys/Head-Dots-Script/blob/main/Heads.lua).
 ```lua
 loadstring(game:HttpGet("https://pastebin.com/raw/BHECBJbR"))()
 ```
 
 ## Contact information
 
-- Discord : [Aleksandar](https://discord.com/users/611111398818316309)
-- ROBLOX : [Ubicast](https://www.roblox.com/users/330279990/profile)
+- Discord : [Exunys](https://discord.com/users/611111398818316309)
+- ROBLOX : [Exunys](https://www.roblox.com/users/330279990/profile)
